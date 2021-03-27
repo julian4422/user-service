@@ -72,7 +72,7 @@ app.post('/busqueLoQueQuiera', async (req, res) => {
 
     await client.connect();
     const collectionUser = await client.db("example").collection("users");
-    const result = await collectionUser.find();
+    const result = await collectionUser.findOne();
     await client.close();
 
     res.status(200).json(result);

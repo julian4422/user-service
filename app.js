@@ -70,9 +70,13 @@ console.log(id);
 app.post('/busqueLoQueQuiera', async (req, res) => {
     const user = req.body;
 
-    await client.connect();
+
+    await client.connect().then(conection => conection).catch(err => {
+        console.log(err);
+        client.close()
+    });
     const collectionUser = await client.db("example").collection("users");
-    const result = await collectionUser.findOne();
+    const result = await collectionUser.findOne(user);
     await client.close();
 
     res.status(200).json(result);

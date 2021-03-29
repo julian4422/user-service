@@ -73,11 +73,11 @@ app.post('/busqueLoQueQuiera', async (req, res) => {
 
     await client.connect().then(conection => conection).catch(err => {
         console.log(err);
-        client.close()
+        
     });
     const collectionUser = await client.db("example").collection("users");
     const result = await collectionUser.findOne(user);
-    await client.close();
+    
 
     res.status(200).json(result);
 

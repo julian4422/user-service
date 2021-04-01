@@ -1,12 +1,12 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const uri = "mongodb+srv://platzi-admin:coco04@curso-platzi.5mxnd.mongodb.net/exmaple?retryWrites=true&w=majority";
 
-const getClient = () => {
+const getClient = () => { // forma sistema de conexion al cluster
     try {
-        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true }); // parsea url y la trae en una sola linea
         return client;
-    } catch (e) {
-        throw new Error('connection error');
+    } catch (e) { 
+        throw new Error('connection error'); // es una clase
     }
 }
 

@@ -24,10 +24,11 @@
 // cambie el correo
 
 class usuario {
-    constructor (username, password, email) {
+    constructor (username, password, email, age) {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.age = age;
     }
 
     cambiarNombre(newUsername) {
@@ -35,11 +36,11 @@ class usuario {
     }
 
     impresion() {
-        console.log(`This is your username: ${this.username},`, `This is your password:  ${this.password},`, `this is your email: ${this.email},`);
+        console.log(`This is your username: ${this.username},`, `This is your password:  ${this.password},`, `this is your email: ${this.email}, this is your age: ${this.age}`);
     }
 }
 
-const yisus = new usuario ('drakekaiser', 'coco04', 'yisusChrist@gmail.com')
+const yisus = new usuario ('drakekaiser', 'coco04', 'yisusChrist@gmail.com', 35)
 // yisus.cambiarNombre('julihermoso')
 // console.log(yisus.username)
  

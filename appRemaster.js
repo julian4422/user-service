@@ -40,25 +40,70 @@ app.post('/busqueLoQueQuiera', async (req, res) => {
 
 
     res.status(200).json(result);
-
+    
 });
+
+//CRUD
+
 // create
-app.post('/newUser', (req, res) => {
-    //crear usuario
-})
+app.post('/newUser', async (req, res) => {
+    const user = req.body;
+
+    const verifyClient = await isConnected(); 
+    await verifyClient.connect();
+    const database = verifyClient.db('example')
+    const collectionUser = await database.collection("users");
+    const result = await collectionUser.insertOne(user);
+    verifyClient.close(); 
+    res.json(result);
+});
 //read
-app.get('/getUser', function (req, res) {
-    //res.send('')
-})
+app.get('/getUser', async (req, res) => {
+    const user = req.body;
+
+    const verifyClient = await isConnected();
+    await verifyClient.connect();
+    const database = verifyClient.db('example')
+    const collectionUser = await database.collection("users");
+    const result = await collectionUser.findOne(user);
+    verifyClient.close();
+    res.json(result);
+});
 //update
-app.put('/updateUser', (req, res) => {
-    //actualizar
-})
+app.put('/updateUser/:userId', async (req, res) => {
+    try {
+        const user = req.body;
+        const userId = req.params.userId;
+        console.log(userId);
+        const verifyClient = await isConnected();
+        await verifyClient.connect();
+        const database = verifyClient.db('example')
+        const collectionUser = await database.collection("users");
+        const result = await collectionUser.updateOne({ _id: new ObjectId(userId) }, {
+           $set: {
+                name: user.name
+           }
+        });
+        verifyClient.close();
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
+});
 //delete
-app.delete('/deleteUser', (req, res) => {
-    // borrar algo
-})
+app.delete('/deleteUser', async (req, res) => {
+    const user = req.body;
+
+    const verifyClient = await isConnected();
+    await verifyClient.connect();
+    const database = verifyClient.db('example')
+    const collectionUser = await database.collection("users");
+    const result = await collectionUser.deleteOne(user);
+    verifyClient.close();
+    res.json(result);
+});
 
 app.listen(3000, () => {
     console.log('listening on port 3000');
-}) 
+});

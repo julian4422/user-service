@@ -22,8 +22,8 @@ const isConnected = async () => {
     }
 }
 
-var express = require('express')
-var app = express()
+const express = require('express');
+const app = express();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
@@ -42,7 +42,22 @@ app.post('/busqueLoQueQuiera', async (req, res) => {
     res.status(200).json(result);
 
 });
-
+// create
+app.post('/newUser', (req, res) => {
+    //crear usuario
+})
+//read
+app.get('/getUser', function (req, res) {
+    //res.send('')
+})
+//update
+app.put('/updateUser', (req, res) => {
+    //actualizar
+})
+//delete
+app.delete('/deleteUser', (req, res) => {
+    // borrar algo
+})
 
 app.listen(3000, () => {
     console.log('listening on port 3000');

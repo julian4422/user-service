@@ -74,7 +74,6 @@ app.put('/updateUser/:userId', async (req, res) => {
     try {
         const user = req.body;
         const userId = req.params.userId;
-        console.log(userId);
         const verifyClient = await isConnected();
         await verifyClient.connect();
         const database = verifyClient.db('example')
@@ -92,16 +91,21 @@ app.put('/updateUser/:userId', async (req, res) => {
     }
 });
 //delete
-app.delete('/deleteUser', async (req, res) => {
-    const user = req.body;
-
-    const verifyClient = await isConnected();
-    await verifyClient.connect();
-    const database = verifyClient.db('example')
-    const collectionUser = await database.collection("users");
-    const result = await collectionUser.deleteOne(user);
-    verifyClient.close();
-    res.json(result);
+app.delete('/deleteUser/:userId', async (req, res) => {
+    try {
+        const user = req.body;
+        const userId = req.params.userId;
+        const verifyClient = await isConnected();
+        await verifyClient.connect();
+        const database = verifyClient.db('example')
+        const collectionUser = await database.collection("users");
+        const result = await collectionUser.deleteOne({ _id: new ObjectId(userId) });
+        verifyClient.close();
+        res.json(result);
+    } catch (error) {
+        console.log(error);
+        res.send(error);
+    }
 });
 
 app.listen(3000, () => {

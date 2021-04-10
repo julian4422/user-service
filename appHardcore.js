@@ -41,7 +41,7 @@ app.post('/Register', async (req, res) => {
     res.json(result);
 });
 
-app.post('/Login', async (req, res) => {
+/*app.post('/Login', async (req, res) => {
     const user = req.body;
 
     const verifyClient = await isConnected();
@@ -51,6 +51,26 @@ app.post('/Login', async (req, res) => {
     const result = await collectionUser.insertOne(user);
     verifyClient.close();
     res.json(result);
+});*/
+
+app.post('/login', function (req, res) {
+    var username = res.body.username;
+    var password = req.body.password;
+    if (username && password) {
+        connection.query('SELECT * FROM accounts WHERE username = ? AND password = ?', [username, password], function (error, results, fields) {
+            if (results.length > 0) {
+                req.session.loggedin = true;
+                req.session.username = username;
+                res.redirect('/home');
+            } else {
+                res.send('Incorrect Username and/or Password!');
+            }
+            res.end();
+        });
+    } else {
+        res.send('Please enter Username and Password!');
+        res.end();
+    }
 });
 
 app.listen(3000, () => {

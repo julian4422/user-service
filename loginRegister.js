@@ -28,12 +28,14 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
 
+
 app.post('/register', async (req, res) => {
     if(/*correo existe*/) {
     //error correo en uso
     } else
     //crear usuario
 });
+
 
 app.post('/login', async (req, res) => {
     if (/*correo existe*/) {

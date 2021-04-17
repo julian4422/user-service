@@ -32,8 +32,7 @@ app.post('/newUser', async (req, res) => {
         await verifyClient.connect();
         const Db = verifyClient.db("example");
         const collectionUser = await Db.collection("users");
-        const result = collectionUser.insertOne(user);
-        await verifyClient.close();
+        const result = await collectionUser.insertOne(user);
         verifyClient.close();
         res.json(result);
 

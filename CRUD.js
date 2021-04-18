@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient, ObjectId } = require('mongodb');
 const uri = 'mongodb+srv://platzi-admin:coco04@curso-platzi.5mxnd.mongodb.net/test'
 
 const getClient = () => {
@@ -23,6 +23,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const { Db } = require('mongodb');
 const { get } = require('mongoose');
+const { ObjectID } = require('bson');
 app.use(bodyParser.json());
 
 app.post('/newUser', async (req, res) => {
@@ -40,6 +41,63 @@ app.post('/newUser', async (req, res) => {
     console.error(e); 
     }
 });
+
+app.get('/queryUser', async (req, res) => {
+    try {
+        const user = req.body;
+        const verifyClient = await isConnected();
+        await verifyClient.connect();
+        const Db = verifyClient.db("example");
+        const collectionUser = await Db.collection("users");
+        const result = await collectionUser.findOne(user);
+        verifyClient.close();
+        res.json(result);
+
+    } catch (e) {
+        console.error(e);
+    }
+});
+
+app.put('/updateUser:userId', async (req, res) => {
+    try {
+        const user = req.body;
+        const userId = req.params.userId;
+        const verifyClient = await isConnected();
+        await verifyClient.connect();
+        const Db = verifyClient.db("example");
+        const collectionUser = await Db.collection("users");
+        const result = await collectionUser.updateOne({ _id: new ObjectId(userId) }, {
+            $set: {
+                name: user.name,
+                age: user.age
+            }
+        });
+        verifyClient.close();
+        res.json(result);
+
+    } catch (e) {
+        console.error(e);
+    }
+});
+
+app.delete('/deleteUser:userId', async (req, res) => {
+    try {
+        const user = req.body;
+        const userId = req.params.userId;
+        const verifyClient = await isConnected();
+        await verifyClient.connect();
+        const Db = verifyClient.db("example");
+        const collectionUser = await Db.collection("users");
+        const result = await collectionUser.deleteOne({ _id: new ObjectID(userId)});
+        verifyClient.close();
+        res.json(result);
+
+    } catch (e) {
+        console.error(e);
+    }
+});
+
+
 
 
 app.listen(3000, () => {

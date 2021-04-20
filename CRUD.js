@@ -58,10 +58,10 @@ app.get('/queryUser', async (req, res) => {
     }
 });
 
-app.put('/updateUser:userId', async (req, res) => {
+app.put('/updateUser/:userId', async (req, res) => {
     try {
         const user = req.body;
-        const userId = req.params.userId;
+        const { userId }= req.params;
         const verifyClient = await isConnected();
         await verifyClient.connect();
         const Db = verifyClient.db("example");
@@ -80,10 +80,9 @@ app.put('/updateUser:userId', async (req, res) => {
     }
 });
 
-app.delete('/deleteUser:userId', async (req, res) => {
+app.delete('/deleteUser/:userId', async (req, res) => {
     try {
-        const user = req.body;
-        const userId = req.params.userId;
+        const { userId } = req.params;
         const verifyClient = await isConnected();
         await verifyClient.connect();
         const Db = verifyClient.db("example");

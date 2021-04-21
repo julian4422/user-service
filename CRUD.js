@@ -1,4 +1,5 @@
 const { MongoClient, ObjectId } = require('mongodb');
+const loginValidator = require('./joiValidation');
 const uri = 'mongodb+srv://platzi-admin:coco04@curso-platzi.5mxnd.mongodb.net/test'
 
 const getClient = () => {
@@ -26,7 +27,7 @@ const { get } = require('mongoose');
 const { ObjectID } = require('bson');
 app.use(bodyParser.json());
 
-app.post('/newUser', async (req, res) => {
+app.post('/newUser', loginValidator, async (req, res) => {
     try { 
         const user = req.body;
         const verifyClient = await isConnected();

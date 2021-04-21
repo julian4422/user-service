@@ -1,10 +1,10 @@
 const Joi = require('joi');
 
-function loginSchema(req, res, next) {
+function loginValidator(req, res, next) {
 
     const schema = Joi.object({
         email: Joi.string().email().required(),
-        password: Joi.string().password().required()
+        password: Joi.string().required()
     });
 
     const options = {
@@ -23,3 +23,4 @@ function loginSchema(req, res, next) {
     }
 };
 
+module.exports = loginValidator;

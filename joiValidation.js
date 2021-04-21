@@ -16,7 +16,8 @@ function loginValidator(req, res, next) {
     const { error, value } = schema.validate(req.body, options);
 
     if (error) {
-        next(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
+        // next(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
+        res.status(400).send(`Validation error: ${error.details.map(x => x.message).join(', ')}`);
     } else {
         req.body = value;
         next();

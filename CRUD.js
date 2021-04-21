@@ -1,5 +1,5 @@
 const { MongoClient, ObjectId } = require('mongodb');
-const loginValidator = require('./joiValidation');
+const { loginValidator } = require('./joiValidation');
 const uri = 'mongodb+srv://platzi-admin:coco04@curso-platzi.5mxnd.mongodb.net/test'
 
 const getClient = () => {

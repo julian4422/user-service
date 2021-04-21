@@ -24,4 +24,6 @@ function loginValidator(req, res, next) {
     }
 };
 
-module.exports = loginValidator;
+module.exports = {
+    loginValidator,
+};

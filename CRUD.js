@@ -96,7 +96,7 @@ app.delete('/deleteUser/:userId', async (req, res) => {
     }
 });
 
-//middleware de validacion, parametros de entrada en la peticion joi => validar que si vengan datos en el objetos
+//middleware de validacion, parametros de entrada en la peticion joi => validar que si vengan datos en el objeto
 // https://jasonwatmore.com/post/2020/07/22/nodejs-express-api-request-schema-validation-with-joi
 
 app.listen(3000, () => {

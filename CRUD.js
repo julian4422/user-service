@@ -12,7 +12,7 @@ const getClient = () => {
 
 const isConnected = async () => {
     const client = await getClient();
-    if (client) {
+    if (client) {  // valida si existe el cluster
         return client;
     }
     return undefined;
@@ -95,6 +95,9 @@ app.delete('/deleteUser/:userId', async (req, res) => {
         console.error(e);
     }
 });
+
+//middleware de validacion, parametros de entrada en la peticion joi => validar que si vengan datos en el objetos
+// https://jasonwatmore.com/post/2020/07/22/nodejs-express-api-request-schema-validation-with-joi
 
 app.listen(3000, () => {
     console.log('listening on port 3000');

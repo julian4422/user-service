@@ -1,5 +1,10 @@
 const { MongoClient, ObjectId } = require('mongodb');
-const { loginValidator } = require('./joiValidation');
+const { 
+    loginValidator, 
+    queryValidator, 
+    updateValidator, 
+    deleteValidator,
+ } = require('./joiValidation');
 const uri = 'mongodb+srv://platzi-admin:coco04@curso-platzi.5mxnd.mongodb.net/test'
 
 const getClient = () => {
@@ -39,11 +44,11 @@ app.post('/newUser', loginValidator, async (req, res) => {
         res.json(result);
 
     } catch(e) { 
-    console.error(e); 
+    console.error(e);  
     }
 });
 
-app.get('/queryUser', async (req, res) => {
+app.get('/queryUser', queryValidator ,async (req, res) => {
     try {
         const user = req.body;
         const verifyClient = await isConnected();
@@ -59,7 +64,7 @@ app.get('/queryUser', async (req, res) => {
     }
 });
 
-app.put('/updateUser/:userId', async (req, res) => {
+app.put('/updateUser/:userId', updateValidator, async (req, res) => {
     try {
         const user = req.body;
         const { userId }= req.params;
@@ -81,7 +86,7 @@ app.put('/updateUser/:userId', async (req, res) => {
     }
 });
 
-app.delete('/deleteUser/:userId', async (req, res) => {
+app.delete('/deleteUser/:userId', deleteValidator ,async (req, res) => {
     try {
         const { userId } = req.params;
         const verifyClient = await isConnected();
@@ -99,6 +104,7 @@ app.delete('/deleteUser/:userId', async (req, res) => {
 
 //middleware de validacion, parametros de entrada en la peticion joi => validar que si vengan datos en el objeto
 // https://jasonwatmore.com/post/2020/07/22/nodejs-express-api-request-schema-validation-with-joi
+// https://www.youtube.com/watch?v=8eg4w8v076w
 
 app.listen(3000, () => {
     console.log('listening on port 3000');

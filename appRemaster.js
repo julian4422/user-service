@@ -93,7 +93,6 @@ app.put('/updateUser/:userId', async (req, res) => {
 //delete
 app.delete('/deleteUser/:userId', async (req, res) => {
     try {
-        const user = req.body;
         const userId = req.params.userId;
         const verifyClient = await isConnected();
         await verifyClient.connect();
